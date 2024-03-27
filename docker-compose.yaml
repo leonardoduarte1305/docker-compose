@@ -1,0 +1,42 @@
+version: "3"
+services:
+  jenkins:
+    image: jenkins/jenkins:jdk17
+    container_name: jenkins-compose
+    ports:
+      - "8090:8080"
+    volumes:
+      - jenkins-volume:/var/jenkins_home
+    networks:
+      - compose
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgres_db:/var/lib/postgresql/data
+    networks:
+      - compose
+    env_file: .env
+
+  pgadmin:
+    image: dpage/pgadmin4:8.4
+    container_name: pgadmin
+    ports:
+      - "15432:80"
+    networks:
+      - compose
+    env_file: .env
+    depends_on:
+      - postgres
+
+networks:
+  compose:
+
+volumes:
+  jenkins-volume:
+  postgresql:
+  postgres_db:
