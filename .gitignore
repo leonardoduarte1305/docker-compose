@@ -1,0 +1,5 @@
+# a linha: "sonar/*/*" ignora todos os arquivos e pastas da pasta sonar
+sonar/*/*
+
+# a linha "!sonar/*/.gitkeep" faz com que apenas os arquivos .gitkeep sejam trackeados pelo git
+!sonar/*/.gitkeep
